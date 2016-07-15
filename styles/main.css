@@ -1,0 +1,19 @@
+* {
+	border-spacing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+
+
+section {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+p {
+	max-width: 400px;
+}
+
+.container {
+	padding: 0 20px;
+	padding-top: 90px;
+}
