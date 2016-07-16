@@ -69,7 +69,13 @@ var Quiz = {
     return this.questions[this.currentQuestionIndex]
   },
 
+  answerFeedbackHeader: function(isCorrect) {
+    return isCorrect ? "<h6 class='user-was-correct'>correct</h6>" :
+      "<h1 class='user-was-incorrect'>Wrooonnnngggg!</>";
+  },
+
   answerFeedbackText: function(isCorrect) {
+
     var praises = [
       "Wow. You got it right. I bet you feel really good about yourself now",
       "Correct. Which would be impressive, if it wasn't just luck",
@@ -149,8 +155,10 @@ function makeCurrentQuestionElem(quiz) {
 
 function makeAnswerFeedbackElem(isCorrect, correctAnswer, quiz) {
   var feedbackElem = $("#js-answer-feedback-template").children().clone();
-  feedbackElem.find(".js-feedback-text").text(quiz.answerFeedbackText());
-  debugger;
+  feedbackElem.find(".js-feedback-header").html(
+    quiz.answerFeedbackHeader(isCorrect));
+  feedbackElem.find(".js-feedback-text").text(
+    quiz.answerFeedbackText(isCorrect));
   feedbackElem.find(".js-see-next").text(quiz.seeNextText());
   return feedbackElem;
 }

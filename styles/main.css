@@ -17,3 +17,16 @@ p {
 	padding: 0 20px;
 	padding-top: 90px;
 }
+
+.user-was-correct::before {
+	content: "Shhhh!!!!! (";
+}
+
+.user-was-correct::after {
+	content: ")";
+}
+
+.user-was-incorrect {
+	font-size: 50px;
+	color: red;
+}
