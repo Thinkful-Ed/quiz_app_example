@@ -69,6 +69,41 @@ var Quiz = {
     return this.questions[this.currentQuestionIndex]
   },
 
+  answerFeedbackText: function(isCorrect) {
+    var praises = [
+      "Wow. You got it right. I bet you feel really good about yourself now",
+      "Correct. Which would be impressive, if it wasn't just luck",
+      "Oh was I yawning? Because you getting that answer right was boring me to sleep",
+      "Hear all that applause for you because you got this question right? Neither do I."
+    ];
+
+    var admonishments = [
+      "Really? That's your guess? WE EXPECTED BETTER OF YOU!",
+      "Looks like someone wasn't paying attention in telepathy school, geesh!",
+      "That's incorrect. You've dissapointed yourself, your family, your city, state, country and planet, to say nothing of the cosmos"
+    ];
+
+    var choices = isCorrect ? praises : admonishments;
+    return choices[Math.floor(Math.random() * choices.length)];
+
+  },
+
+  seeNextText: function() {
+    return this.currentQuestionIndex <
+      this.questions.length - 1 ? "Next" : "How did I do?";
+
+  },
+
+  questionCountText: function() {
+    return (this.currentQuestionIndex + 1) + "/" +
+      this.questions.length + ": " + this.text;
+  },
+
+  finalFeedbackText: function() {
+    return "You got " + this.score + " out of " +
+      this.questions.length + " questions right.";
+  },
+
   scoreUserAnswer: function(answer) {
     var correctChoice = this.currentQuestion().choices[this.currentQuestion().correctChoiceIndex];
     if (answer === correctChoice) {
@@ -76,7 +111,6 @@ var Quiz = {
     }
     return answer === correctChoice;
   }
-
 }
 
 
@@ -94,9 +128,7 @@ function makeCurrentQuestionElem(quiz) {
   var questionElem = $("#js-question-template" ).children().clone();
   var question = quiz.currentQuestion();
 
-  questionElem.find(".js-question-count").text(
-    (quiz.currentQuestionIndex + 1) + "/" +
-    quiz.questions.length + ": " + question.text);
+  questionElem.find(".js-question-count").text(quiz.questionCountText());
   questionElem.find('.js-question-text').text(question.text);
 
   // add choices as radio inputs
@@ -117,18 +149,15 @@ function makeCurrentQuestionElem(quiz) {
 
 function makeAnswerFeedbackElem(isCorrect, correctAnswer, quiz) {
   var feedbackElem = $("#js-answer-feedback-template").children().clone();
-  var feedbackText = isCorrect ? "Correct. But that was just luck." : "Wrong! The correct answer is " + correctAnswer
-  feedbackElem.find(".js-feedback-text").text(feedbackText);
-
-  var seeNextText = quiz.currentQuestionIndex < quiz.questions.length - 1 ? "Next" : "How did I do?"
-  feedbackElem.find(".js-see-next").text(seeNextText);
+  feedbackElem.find(".js-feedback-text").text(quiz.answerFeedbackText());
+  debugger;
+  feedbackElem.find(".js-see-next").text(quiz.seeNextText());
   return feedbackElem;
 }
 
 function makeFinalFeedbackElem(quiz) {
   var finalFeedbackElem = $("#js-final-feedback-template").clone();
-  var feedbackText = "You got " + quiz.score + " out of " + quiz.questions.length + " questions right.";
-  finalFeedbackElem.find(".js-results-text").text(feedbackText)
+  finalFeedbackElem.find(".js-results-text").text(quiz.finalFeedbackText());
   return finalFeedbackElem;
 }
 
