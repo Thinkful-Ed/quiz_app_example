@@ -29,7 +29,7 @@
 
 
 // data
-// Note: ideally you'd save this data in a JSON file, 
+// Note: ideally you'd save this data in a JSON file,
 // and use jQuery to load the JSON. It's better to store
 // raw data like this in an external JSON file, instead of
 // inside the JS code that contains application logic.
@@ -77,17 +77,17 @@ var Quiz = {
   },
 
   // ditto here: this is also used to generate content
-  // that will be inserted into the DOM below. 
+  // that will be inserted into the DOM below.
   answerFeedbackHeader: function(isCorrect) {
     return isCorrect ? "<h6 class='user-was-correct'>correct</h6>" :
       "<h1 class='user-was-incorrect'>Wrooonnnngggg!</>";
   },
 
-  // this method is used to generate text on 
+  // this method is used to generate text on
   // whether or not the user guessed correctly.
   // if they are correct, the feedback text will
   // be randomly chosen from `praises`, and if they're
-  // incorrect, it will be randomly chosen from 
+  // incorrect, it will be randomly chosen from
   // `admonishments`.
   answerFeedbackText: function(isCorrect) {
 
@@ -104,7 +104,7 @@ var Quiz = {
       "That's incorrect. You've dissapointed yourself, your family, your city, state, country and planet, to say nothing of the cosmos"
     ];
 
-    // another tenrary operator 
+    // another tenrary operator
     var choices = isCorrect ? praises : admonishments;
     return choices[Math.floor(Math.random() * choices.length)];
 
@@ -118,15 +118,15 @@ var Quiz = {
 
   questionCountText: function() {
     return (this.currentQuestionIndex + 1) + "/" +
-      this.questions.length;
+      this.questions.length + ": ";
   },
 
   finalFeedbackText: function() {
     return "You got " + this.score + " out of " +
       this.questions.length + " questions right.";
   },
-  
-  // this method compares the user's answer to 
+
+  // this method compares the user's answer to
   // the correct answer for the current question
   scoreUserAnswer: function(answer) {
     var correctChoice = this.currentQuestion().choices[this.currentQuestion().correctChoiceIndex];
@@ -137,8 +137,8 @@ var Quiz = {
   }
 }
 
-// factory method for creating 
-// a new quiz. 
+// factory method for creating
+// a new quiz.
 function getNewQuiz() {
   var quiz = Object.create(Quiz);
   // `QUESTIONS` is defined at the top of this file
@@ -148,7 +148,7 @@ function getNewQuiz() {
 
 
 // DOM manipulation
-// 
+//
 // the following functions handle listening for
 // user events (answering a question, clicking "Next")
 // and altering the DOM. Note the clear separation of
@@ -207,7 +207,7 @@ function makeFinalFeedbackElem(quiz) {
 
 // this function just listens for when the user clicks the see next
 // element. if there are more questions, it displays the next one,
-// otherwise it displays the final feedback 
+// otherwise it displays the final feedback
 function handleSeeNext(quiz, currentQuestionElem) {
 
   $("main").on("click", ".js-see-next", function(event) {
@@ -252,7 +252,7 @@ function handleQuizStart() {
   });
 }
 
-// listen for when the user indicates they want to 
+// listen for when the user indicates they want to
 // restart the game.
 function handleRestarts() {
   $("main").on("click", ".js-restart-game", function(event){
