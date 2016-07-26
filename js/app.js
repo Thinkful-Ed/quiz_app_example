@@ -118,7 +118,7 @@ var Quiz = {
 
   questionCountText: function() {
     return (this.currentQuestionIndex + 1) + "/" +
-      this.questions.length + ": " + this.text;
+      this.questions.length;
   },
 
   finalFeedbackText: function() {
