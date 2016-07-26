@@ -29,6 +29,10 @@
 
 
 // data
+// Note: ideally you'd save this data in a JSON file,
+// and use jQuery to load the JSON. It's better to store
+// raw data like this in an external JSON file, instead of
+// inside the JS code that contains application logic.
 var QUESTIONS = [
   {
     text: "Which number am I thinking of?",
@@ -65,15 +69,26 @@ var Quiz = {
   questions: [],
   currentQuestionIndex: 0,
 
+  // we'll call this method below in this file
+  // in the functions that deal with inserting
+  // content into the DOM.
   currentQuestion: function() {
     return this.questions[this.currentQuestionIndex]
   },
 
+  // ditto here: this is also used to generate content
+  // that will be inserted into the DOM below.
   answerFeedbackHeader: function(isCorrect) {
     return isCorrect ? "<h6 class='user-was-correct'>correct</h6>" :
       "<h1 class='user-was-incorrect'>Wrooonnnngggg!</>";
   },
 
+  // this method is used to generate text on
+  // whether or not the user guessed correctly.
+  // if they are correct, the feedback text will
+  // be randomly chosen from `praises`, and if they're
+  // incorrect, it will be randomly chosen from
+  // `admonishments`.
   answerFeedbackText: function(isCorrect) {
 
     var praises = [
@@ -89,6 +104,7 @@ var Quiz = {
       "That's incorrect. You've dissapointed yourself, your family, your city, state, country and planet, to say nothing of the cosmos"
     ];
 
+    // another tenrary operator
     var choices = isCorrect ? praises : admonishments;
     return choices[Math.floor(Math.random() * choices.length)];
 
@@ -102,7 +118,7 @@ var Quiz = {
 
   questionCountText: function() {
     return (this.currentQuestionIndex + 1) + "/" +
-      this.questions.length + ": " + this.text;
+      this.questions.length + ": ";
   },
 
   finalFeedbackText: function() {
@@ -110,6 +126,8 @@ var Quiz = {
       this.questions.length + " questions right.";
   },
 
+  // this method compares the user's answer to
+  // the correct answer for the current question
   scoreUserAnswer: function(answer) {
     var correctChoice = this.currentQuestion().choices[this.currentQuestion().correctChoiceIndex];
     if (answer === correctChoice) {
@@ -119,7 +137,8 @@ var Quiz = {
   }
 }
 
-
+// factory method for creating
+// a new quiz.
 function getNewQuiz() {
   var quiz = Object.create(Quiz);
   // `QUESTIONS` is defined at the top of this file
@@ -129,8 +148,24 @@ function getNewQuiz() {
 
 
 // DOM manipulation
+//
+// the following functions handle listening for
+// user events (answering a question, clicking "Next")
+// and altering the DOM. Note the clear separation of
+// concerns this gives us. The `Quiz` object is responsible
+// for managing the state of the application (which question
+// is the current one? is the user's answer correct?), and
+// these functions are responsible for listening to what the
+// user is doing and responding by generating the right elements
+// and inserting them into the DOM.
+
 function makeCurrentQuestionElem(quiz) {
 
+  // this is the clone method mentioned in the comments at the top
+  // of the file. Have a look at index.html to see the HTML that
+  // this clone will give us. Again, the advantage here is that we
+  // minimize the amount of HTML that we have inside our JavaScript,
+  // which makes maintenance much easier.
   var questionElem = $("#js-question-template" ).children().clone();
   var question = quiz.currentQuestion();
 
@@ -170,6 +205,9 @@ function makeFinalFeedbackElem(quiz) {
 }
 
 
+// this function just listens for when the user clicks the see next
+// element. if there are more questions, it displays the next one,
+// otherwise it displays the final feedback
 function handleSeeNext(quiz, currentQuestionElem) {
 
   $("main").on("click", ".js-see-next", function(event) {
@@ -187,6 +225,7 @@ function handleSeeNext(quiz, currentQuestionElem) {
   });
 }
 
+// listen for when user submits answer to a question
 function handleAnswers(quiz) {
   $("main").on("submit", "form[name='current-question']", function(event) {
     event.preventDefault();
@@ -200,7 +239,8 @@ function handleAnswers(quiz) {
   });
 }
 
-
+// display the quiz start content, and listen for
+// when the user clicks "start quiz"
 function handleQuizStart() {
   $("main").html($("#js-start-template").clone());
   $("form[name='game-start']").submit(function(event) {
@@ -212,6 +252,8 @@ function handleQuizStart() {
   });
 }
 
+// listen for when the user indicates they want to
+// restart the game.
 function handleRestarts() {
   $("main").on("click", ".js-restart-game", function(event){
     event.preventDefault();
