@@ -47,17 +47,17 @@ var state = {
 };
 
 // State modification functions
-var setRoute = function(state, route) {
+function setRoute(state, route) {
   state.route = route;
 };
 
-var resetGame = function(state) {
+function resetGame(state) {
   state.score = 0;
   state.currentQuestionIndex = 0;
   setRoute(state, 'start');
 };
 
-var answerQuestion = function(state, answer) {
+function answerQuestion(state, answer) {
   var currentQuestion = state.questions[state.currentQuestionIndex];
   console.log(answer, currentQuestion.correctChoiceIndex);
   state.lastAnswerCorrect = currentQuestion.correctChoiceIndex === answer;
@@ -68,11 +68,11 @@ var answerQuestion = function(state, answer) {
   setRoute(state, 'answer-feedback');
 };
 
-var selectFeedback = function(state) {
+function selectFeedback(state) {
   state.feedbackRandom = Math.random();
 };
 
-var advance = function(state) {
+function advance(state) {
   state.currentQuestionIndex++;
   if (state.currentQuestionIndex === state.questions.length) {
     setRoute(state, 'final-feedback');
@@ -83,7 +83,7 @@ var advance = function(state) {
 };
 
 // Render functions
-var renderApp = function(state, elements) {
+function renderApp(state, elements) {
   Object.keys(elements).forEach(function(route) {
     elements[route].hide();
   });
@@ -103,36 +103,36 @@ var renderApp = function(state, elements) {
   }
 };
 
-var renderStartPage = function(state, element) {
+function renderStartPage(state, element) {
 };
 
-var renderQuestionPage = function(state, element) {
+function renderQuestionPage(state, element) {
   renderQuestionCount(state, element.find('.question-count'));
   renderQuestionText(state, element.find('.question-text'));
   renderChoices(state, element.find('.choices'));
 };
 
-var renderAnswerFeedbackPage = function(state, element) {
+function renderAnswerFeedbackPage(state, element) {
   renderAnswerFeedbackHeader(state, element.find(".feedback-header"));
   renderAnswerFeedbackText(state, element.find(".feedback-text"));
   renderNextButtonText(state, element.find(".see-next"));
 };
 
-var renderFinalFeedbackPage = function(state, element) {
+function renderFinalFeedbackPage(state, element) {
   renderFinalFeedbackText(state, element.find('.results-text'));
 };
 
-var renderQuestionCount = function(state, element) {
+function renderQuestionCount(state, element) {
   var text = (state.currentQuestionIndex + 1) + "/" + state.questions.length;
   element.text(text);
 };
 
-var renderQuestionText = function(state, element) {
+function renderQuestionText(state, element) {
   var currentQuestion = state.questions[state.currentQuestionIndex];
   element.text(currentQuestion.text);
 };
 
-var renderChoices = function(state, element) {
+function renderChoices(state, element) {
   var currentQuestion = state.questions[state.currentQuestionIndex];
   var choices = currentQuestion.choices.map(function(choice, index) {
     return (
@@ -145,7 +145,7 @@ var renderChoices = function(state, element) {
   element.html(choices);
 };
 
-var renderAnswerFeedbackHeader = function(state, element) {
+function renderAnswerFeedbackHeader(state, element) {
   var html = state.lastAnswerCorrect ?
       "<h6 class='user-was-correct'>correct</h6>" :
       "<h1 class='user-was-incorrect'>Wrooonnnngggg!</>";
@@ -153,19 +153,19 @@ var renderAnswerFeedbackHeader = function(state, element) {
   element.html(html);
 };
 
-var renderAnswerFeedbackText = function(state, element) {
+function renderAnswerFeedbackText(state, element) {
   var choices = state.lastAnswerCorrect ? state.praises : state.admonishments;
   var text = choices[Math.floor(state.feedbackRandom * choices.length)];
   element.text(text);
 };
 
-var renderNextButtonText = function(state, element) {
+function renderNextButtonText(state, element) {
     var text = state.currentQuestionIndex < state.questions.length - 1 ?
       "Next" : "How did I do?";
   element.text(text);
 };
 
-var renderFinalFeedbackText = function(state, element) {
+function renderFinalFeedbackText(state, element) {
   var text = "You got " + state.score + " out of " +
     state.questions.length + " questions right.";
   element.text(text);
