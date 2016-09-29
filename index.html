@@ -14,56 +14,46 @@
 
   <div class="container">
 
-    <main></main>
-
-  </div>
-
-  <!-- inline styling this instead of CSS because it should never be viewable to anyone except our JS, which uses this content as mini-templates for questions
-  and answers -->
-  <div style="display:none;">
-
-    <div id="js-start-template">
-      <h1>Quiz App</h1>
-      <p>This app tests your ability to guess the right answer to four questions. The correct answers have been chosen at random.</p>
-      <p><em>Good luck friend!</em></p>
-      <form name="game-start">
-        <button type="submit">start</button>
-      </form>
-    </div>
-
-    <div id="js-question-template">
-      <h3><span class="js-question-count"></span><span class="js-question-text"></span></h3>
-      <form name="current-question">
-        <ol type="A" class="js-choices"></ol>
-        <button type="submit">Submit</button>
-        <button class="js-restart-game">Start over</button>
-      </form>
-    </div>
-
-    <div id="js-choice-template">
-      <li>
-        <input type="radio" name="user-answer" required>
-        <label></label>
-      </li>
-    </div>
-
-    <div id="js-answer-feedback-template">
-      <div class="js-feedback-container">
-        <div class="js-feedback-header"></div>
-        <p class="js-feedback-text"></p>
-        <button class="js-see-next"></button>
+    <main>
+    <!-- inline styling this instead of CSS because it should never be viewable to anyone except our JS, which uses this content as mini-templates for questions
+    and answers -->
+      <div class="start-page" style="display: none;">
+        <h1>Quiz App</h1>
+        <p>This app tests your ability to guess the right answer to four questions. The correct answers have been chosen at random.</p>
+        <p><em>Good luck friend!</em></p>
+        <form name="game-start">
+          <button type="submit">start</button>
+        </form>
       </div>
-    </div>
 
-    <div id="js-final-feedback-template">
-      <h1>Results</h1>
-      <p class="js-results-text"></p>
-      <button class="js-restart-game">Start over</button>
-    </div>
+      <div class="question-page" style="display: none;">
+        <h3><span class="question-count"></span> : <span class="question-text"></span></h3>
+        <form name="current-question">
+          <ol type="A" class="choices"></ol>
+          <button type="submit">Submit</button>
+          <button class="restart-game">Start over</button>
+        </form>
+      </div>
+
+      <div class="answer-feedback-page" style="display: none;">
+        <div class="feedback-container">
+          <div class="feedback-header"></div>
+          <p class="feedback-text"></p>
+          <button class="see-next"></button>
+        </div>
+      </div>
+
+      <div class="final-feedback-page" style="display: none;">
+        <h1>Results</h1>
+        <p class="results-text"></p>
+        <button class="restart-game">Start over</button>
+      </div>
+    </main>
 
   </div>
 
-  <script src="//code.jquery.com/jquery-3.1.0.slim.min.js"   integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8="   crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.1.0.slim.min.js"   integrity="sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8="   crossorigin="anonymous"></script>
   <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
