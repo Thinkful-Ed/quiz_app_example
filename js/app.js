@@ -83,6 +83,7 @@ function advance(state) {
 
 // Render functions
 function renderApp(state, elements) {
+  // default to hiding all routes, then show the current route
   Object.keys(elements).forEach(function(route) {
     elements[route].hide();
   });
@@ -102,6 +103,10 @@ function renderApp(state, elements) {
   }
 };
 
+// at the moment, `renderStartPage` doesn't do anything, because
+// the start page is preloaded in our HTML, but we've included
+// the function and used above in our routing system so that this
+// application view is accounted for in our system
 function renderStartPage(state, element) {
 };
 
@@ -137,7 +142,7 @@ function renderChoices(state, element) {
     return (
       '<li>' +
         '<input type="radio" name="user-answer" value="' + index + '" required>' +
-        '<label>' + choice + '</label>' + 
+        '<label>' + choice + '</label>' +
       '</li>'
     );
   });
@@ -203,4 +208,4 @@ $(".see-next").click(function(event) {
   renderApp(state, PAGE_ELEMENTS);
 });
 
-renderApp(state, PAGE_ELEMENTS);
+$(function() { renderApp(state, PAGE_ELEMENTS); });
