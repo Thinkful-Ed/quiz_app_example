@@ -1,8 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Domine:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Francois+One&display=swap');
+
 * {
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
 }
 
+body {
+	background: #000428;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #004e92, #000428);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #004e92, #000428); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	color: #FFF;
+	text-align: center;
+}
+
+/*Styling Heading and Content inside*/
+.container main .start-page h1 {
+	font-family: 'Pacifico', cursive;
+	text-align: center;
+	font-size: 4rem;
+	margin-top: 0;
+	margin-bottom: 50px;
+}
+
+.container main .start-page p {
+	display: block;
+	margin: auto;
+	font-family: 'Architects Daughter', cursive;
+	font-size: 1.5rem;
+	margin-bottom: 40px;
+}
+
+/*Styling the buttons*/
+button {
+	background-color: #FFFFFF;
+	border: none;
+	border-radius: 5px;
+	color: #006699;
+	font-size: 30px;
+	padding: 10px;
+	margin: 10px;
+}
+
+button:hover {
+	color: #FFFFFF;
+	background-color: #006699;
+} 
+
+/*Styling the choices*/
+.choices {
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.choices li {
+	font-size: 30px;
+	margin: 20px;
+}
+
+/*Styling Questions*/
+.question-page h3 {
+	font-size: 2.5rem;
+	font-family: 'Domine', serif;
+}
+
+/*Styling Feedbacks*/
+.feedback-header {
+	font-size: 3rem;
+}
+
+.feedback-text, .results-text {
+	display: block;
+	margin: 30px auto;
+	font-size: 1.5rem;
+}
 
 main {
 	max-width: 960px;
@@ -18,15 +93,20 @@ p {
 	padding-top: 90px;
 }
 
+
+
 .user-was-correct::before {
 	content: "Shhhh!!!!! (";
+	
 }
 
 .user-was-correct::after {
 	content: ")";
+
 }
 
 .user-was-incorrect {
+	font-family: 'Francois One', sans-serif;
 	font-size: 50px;
 	color: red;
 }
